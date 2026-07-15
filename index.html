@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MyTshwane Bus — Account</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- ===================== AUTH ===================== -->
+<div class="auth-wrap" id="auth">
+  <div class="auth-card">
+    <div class="auth-brand">
+      <div class="brand-mark">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4 21V9l8-6 8 6v12" stroke="#f4c95d" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 21v-7h6v7" stroke="#f4c95d" stroke-width="1.8" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="brand-name">
+        <span class="top">City of Tshwane</span>
+        <span class="main">MyTshwane Bus</span>
+      </div>
+    </div>
+
+    <!-- Sign in -->
+    <form class="auth-form active" id="form-login" onsubmit="return handleLogin(event)">
+      <h1>Sign in</h1>
+      <p class="auth-sub">Sign in to buy tickets, reload your wallet and board with a tap.</p>
+      <div id="login-error" class="auth-error"></div>
+      <div class="field-label" style="margin-top:4px;">Email address</div>
+      <input class="input" type="email" id="login-email" placeholder="you@example.com" required>
+      <div class="field-label">Password</div>
+      <input class="input" type="password" id="login-password" placeholder="••••••••" required>
+      <div class="auth-row">
+        <label class="check"><input type="checkbox" checked> Remember me</label>
+        <a href="#" class="link">Forgot password?</a>
+      </div>
+      <button class="btn btn-primary" type="submit" style="width:100%;justify-content:center;margin-top:6px;">Sign in</button>
+      <p class="auth-switch">Don't have an account? <a href="#" onclick="showAuth('register');return false;">Register</a></p>
+    </form>
+
+    <!-- Register -->
+    <form class="auth-form" id="form-register" onsubmit="return handleRegister(event)">
+      <h1>Create your account</h1>
+      <p class="auth-sub">Register once to buy tickets, reload your wallet and manage your trips online.</p>
+      <div id="register-error" class="auth-error"></div>
+      <div class="field-label" style="margin-top:4px;">Full name</div>
+      <input class="input" type="text" id="reg-name" placeholder="Thabo Mokoena" required>
+      <div class="field-label">Email address</div>
+      <input class="input" type="email" id="reg-email" placeholder="you@example.com" required>
+      <div class="field-label">Mobile number</div>
+      <input class="input" type="tel" id="reg-phone" placeholder="082 000 0000" required>
+      <div class="field-label">Password</div>
+      <input class="input" type="password" id="reg-password" placeholder="At least 8 characters" required minlength="8">
+      <button class="btn btn-primary" type="submit" style="width:100%;justify-content:center;margin-top:6px;">Create account</button>
+      <p class="auth-switch">Already registered? <a href="#" onclick="showAuth('login');return false;">Sign in</a></p>
+    </form>
+  </div>
+</div>
+
+<!-- ===================== APP ===================== -->
+<div id="app" class="app-shell">
+
+<div class="utility">
+  <div class="utility-inner">
+    <span>Skip the queue — buy or reload your ticket online, board with a tap.</span>
+    <div class="utility-links">
+      <a href="#">Help &amp; support</a>
+      <a href="#">Report a problem</a>
+      <a href="#">EN</a>
+    </div>
+  </div>
+</div>
+
+<header class="top">
+  <div class="top-inner">
+    <div class="brand">
+      <div class="brand-mark">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4 21V9l8-6 8 6v12" stroke="#f4c95d" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 21v-7h6v7" stroke="#f4c95d" stroke-width="1.8" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="brand-name">
+        <span class="top">City of Tshwane</span>
+        <span class="main">MyTshwane Bus</span>
+      </div>
+    </div>
+
+    <nav class="tabs" id="tabs">
+      <button data-tab="home" class="active">Home</button>
+      <button data-tab="cards">My cards</button>
+      <button data-tab="buy">Buy ticket</button>
+      <button data-tab="topup">Top up</button>
+      <button data-tab="schedule">Schedules</button>
+      <button data-tab="trips">Trip history</button>
+      <button data-tab="settings">Settings</button>
+    </nav>
+
+    <div class="account-chip">
+      <div class="wallet-pill">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><rect x="3" y="6" width="18" height="13" rx="2" stroke="#0e3d27" stroke-width="1.8"/><path d="M3 10h18" stroke="#0e3d27" stroke-width="1.8"/><circle cx="17" cy="14.5" r="1.2" fill="#0e3d27"/></svg>
+        R 84.50
+      </div>
+      <div class="account-menu">
+        <button class="avatar" id="avatarBtn" onclick="toggleAccountMenu(event)">TM</button>
+        <div class="account-dropdown" id="accountDropdown">
+          <div class="dropdown-name">Thabo Mokoena</div>
+          <div class="dropdown-email">thabo.mokoena@example.com</div>
+          <a href="#" onclick="showTab('settings');closeAccountMenu();return false;">Account settings</a>
+          <a href="#" onclick="showTab('cards');closeAccountMenu();return false;">My cards &amp; tickets</a>
+          <a href="#" class="logout" onclick="handleLogout();return false;">Log out</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <!-- ===================== HOME ===================== -->
+  <section class="panel active" id="panel-home">
+    <div class="hero">
+      <div>
+        <p class="eyebrow">Live in Tshwane</p>
+        <h1>Good afternoon, Thabo.<br>Board without ever touching a card.</h1>
+        <p>Your digital ticket is ready. Show your QR code to the driver, or tap Buy ticket to load a new trip before you leave home.</p>
+        <div class="balance-row">
+          <div class="balance-block">
+            <div class="label">Wallet balance</div>
+            <div class="value">R 84.50</div>
+          </div>
+          <div class="balance-block">
+            <div class="label">Active pass</div>
+            <div class="value">Weekly — 4 days left</div>
+          </div>
+        </div>
+        <div class="hero-actions">
+          <button class="btn btn-gold" onclick="showTab('topup')">Top up wallet</button>
+          <button class="btn btn-ghost" onclick="showTab('buy')">Buy a ticket</button>
+        </div>
+      </div>
+
+      <div class="qr-card">
+        <div class="top">
+          <span class="name">Thabo Mokoena</span>
+          <span class="status">Active</span>
+        </div>
+        <div class="qr-wrap">
+          <svg width="150" height="150" viewBox="0 0 150 150">
+            <rect width="150" height="150" rx="10" fill="#fff"/>
+            <g fill="#12271c">
+              <rect x="10" y="10" width="34" height="34" rx="4"/><rect x="18" y="18" width="18" height="18" rx="2" fill="#fff"/><rect x="24" y="24" width="6" height="6" fill="#12271c"/>
+              <rect x="106" y="10" width="34" height="34" rx="4"/><rect x="114" y="18" width="18" height="18" rx="2" fill="#fff"/><rect x="120" y="24" width="6" height="6" fill="#12271c"/>
+              <rect x="10" y="106" width="34" height="34" rx="4"/><rect x="18" y="114" width="18" height="18" rx="2" fill="#fff"/><rect x="24" y="120" width="6" height="6" fill="#12271c"/>
+              <rect x="54" y="14" width="6" height="6"/><rect x="66" y="14" width="6" height="6"/><rect x="78" y="20" width="6" height="6"/><rect x="54" y="30" width="6" height="6"/><rect x="90" y="14" width="6" height="6"/>
+              <rect x="54" y="54" width="6" height="6"/><rect x="66" y="54" width="6" height="6"/><rect x="78" y="54" width="6" height="6"/><rect x="90" y="54" width="6" height="6"/><rect x="102" y="54" width="6" height="6"/>
+              <rect x="54" y="66" width="6" height="6"/><rect x="78" y="66" width="6" height="6"/><rect x="114" y="66" width="6" height="6"/><rect x="126" y="66" width="6" height="6"/>
+              <rect x="54" y="78" width="6" height="6"/><rect x="66" y="78" width="6" height="6"/><rect x="90" y="78" width="6" height="6"/><rect x="102" y="90" width="6" height="6"/>
+              <rect x="54" y="90" width="6" height="6"/><rect x="78" y="90" width="6" height="6"/><rect x="114" y="90" width="6" height="6"/><rect x="126" y="102" width="6" height="6"/>
+              <rect x="54" y="114" width="6" height="6"/><rect x="66" y="126" width="6" height="6"/><rect x="90" y="114" width="6" height="6"/><rect x="102" y="126" width="6" height="6"/><rect x="114" y="114" width="6" height="6"/><rect x="126" y="126" width="6" height="6"/>
+            </g>
+          </svg>
+        </div>
+        <div class="foot">Route <b>Colbyn — Church St East</b> · Valid until boarding</div>
+      </div>
+    </div>
+
+    <div class="section-title"><h2>Quick actions</h2></div>
+    <div class="grid-4">
+      <div class="quick-card" onclick="showTab('buy')">
+        <div class="quick-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M3 9a2 2 0 002-2V6a1 1 0 011-1h12a1 1 0 011 1v1a2 2 0 002 2 2 2 0 010 4 2 2 0 00-2 2v1a1 1 0 01-1 1H6a1 1 0 01-1-1v-1a2 2 0 00-2-2 2 2 0 010-4z" stroke="currentColor" stroke-width="1.7"/><path d="M9 5v14" stroke="currentColor" stroke-width="1.7" stroke-dasharray="2 2"/></svg></div>
+        <div class="t">Buy a ticket</div>
+        <div class="d">Single, return, day or weekly pass</div>
+      </div>
+      <div class="quick-card" onclick="showTab('topup')">
+        <div class="quick-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="3" y="6" width="18" height="13" rx="2" stroke="currentColor" stroke-width="1.7"/><path d="M3 10h18" stroke="currentColor" stroke-width="1.7"/></svg></div>
+        <div class="t">Top up wallet</div>
+        <div class="d">Add funds with card or EFT</div>
+      </div>
+      <div class="quick-card" onclick="showTab('schedule')">
+        <div class="quick-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 21s7-6.2 7-11.5A7 7 0 105 9.5C5 14.8 12 21 12 21z" stroke="currentColor" stroke-width="1.7"/><circle cx="12" cy="9.5" r="2.3" stroke="currentColor" stroke-width="1.7"/></svg></div>
+        <div class="t">Track my ride</div>
+        <div class="d">Live location of your next bus</div>
+      </div>
+      <div class="quick-card" onclick="showTab('schedule')">
+        <div class="quick-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="3" y="4.5" width="18" height="16" rx="2" stroke="currentColor" stroke-width="1.7"/><path d="M3 9.5h18M8 3v3M16 3v3" stroke="currentColor" stroke-width="1.7"/></svg></div>
+        <div class="t">Bus schedule</div>
+        <div class="d">Routes and timetables</div>
+      </div>
+    </div>
+
+    <div class="section-title"><h2>Recent activity</h2><a class="see-all" href="#" onclick="showTab('trips')">See all</a></div>
+    <div class="card">
+      <div class="list-row">
+        <div class="l"><div class="icon-badge">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M4 21V9l8-6 8 6v12" stroke="currentColor" stroke-width="1.7"/></svg>
+        </div><div class="meta"><div class="t">Colbyn → Church St East</div><div class="s">Today, 07:42 · Single ticket</div></div></div>
+        <div class="amount">– R 14.50</div>
+      </div>
+      <div class="list-row">
+        <div class="l"><div class="icon-badge">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="3" y="6" width="18" height="13" rx="2" stroke="currentColor" stroke-width="1.7"/></svg>
+        </div><div class="meta"><div class="t">Wallet top-up</div><div class="s">Yesterday, 18:05 · Card ending 4021</div></div></div>
+        <div class="amount">+ R 100.00</div>
+      </div>
+      <div class="list-row">
+        <div class="l"><div class="icon-badge">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M4 21V9l8-6 8 6v12" stroke="currentColor" stroke-width="1.7"/></svg>
+        </div><div class="meta"><div class="t">Murrayfield → Arcadia</div><div class="s">Mon, 07:38 · Weekly pass</div></div></div>
+        <div class="amount tag ok">Covered</div>
+      </div>
+    </div>
+
+    <div class="promo">
+      <div>
+        <div class="t">First-time in Tshwane?</div>
+        <div class="s">Buses run clockwise from Colbyn and Church Street East, so routes heading the same direction list together in the timetable.</div>
+      </div>
+      <button class="btn btn-outline" onclick="showTab('schedule')">View timetable</button>
+    </div>
+  </section>
+
+  <!-- ===================== MY CARDS & TICKETS ===================== -->
+  <section class="panel" id="panel-cards">
+    <div class="section-title"><h2>My cards &amp; tickets</h2><a class="see-all" href="#" onclick="showTab('buy');return false;">Buy new ticket</a></div>
+
+    <div class="grid-3" id="cardsGrid">
+      <div class="ticket-card active-card" data-card="wallet">
+        <div class="ticket-top">
+          <span class="ticket-type">Wallet</span>
+          <span class="tag ok">Default</span>
+        </div>
+        <div class="ticket-balance">R 84.50</div>
+        <div class="ticket-sub">Tap wallet · used automatically when no pass applies</div>
+        <div class="ticket-actions">
+          <button class="btn btn-outline btn-sm" onclick="showTab('topup')">Reload</button>
+          <button class="btn btn-outline btn-sm" disabled>Default</button>
+        </div>
+      </div>
+
+      <div class="ticket-card" data-card="weekly">
+        <div class="ticket-top">
+          <span class="ticket-type">Weekly pass</span>
+          <span class="tag ok">Active</span>
+        </div>
+        <div class="ticket-balance">4 days left</div>
+        <div class="ticket-sub">Colbyn — Church St East · expires 20 Jul 2026</div>
+        <div class="ticket-actions">
+          <button class="btn btn-outline btn-sm" onclick="setDefaultCard('weekly', this)">Set as default</button>
+          <button class="btn btn-outline btn-sm" onclick="toggleFreeze('weekly', this)">Freeze</button>
+        </div>
+      </div>
+
+      <div class="ticket-card" data-card="single">
+        <div class="ticket-top">
+          <span class="ticket-type">Single ticket</span>
+          <span class="tag pending">Unused</span>
+        </div>
+        <div class="ticket-balance">1 trip</div>
+        <div class="ticket-sub">Bought today, 07:40 · valid for 90 minutes once scanned</div>
+        <div class="ticket-actions">
+          <button class="btn btn-outline btn-sm" onclick="setDefaultCard('single', this)">Set as default</button>
+          <button class="btn btn-outline btn-sm danger" onclick="reportLost('single', this)">Report lost</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-title"><h2>Add a new card or ticket</h2></div>
+    <div class="grid-4">
+      <div class="quick-card" onclick="showTab('buy')">
+        <div class="quick-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M3 9a2 2 0 002-2V6a1 1 0 011-1h12a1 1 0 011 1v1a2 2 0 002 2 2 2 0 010 4 2 2 0 00-2 2v1a1 1 0 01-1 1H6a1 1 0 01-1-1v-1a2 2 0 00-2-2 2 2 0 010-4z" stroke="currentColor" stroke-width="1.7"/></svg></div>
+        <div class="t">Buy a new ticket</div>
+        <div class="d">Single, return, day or weekly pass</div>
+      </div>
+      <div class="quick-card" onclick="showTab('settings')">
+        <div class="quick-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="3" y="6" width="18" height="13" rx="2" stroke="currentColor" stroke-width="1.7"/><path d="M3 10h18" stroke="currentColor" stroke-width="1.7"/></svg></div>
+        <div class="t">Link a bank card</div>
+        <div class="d">For faster top-ups and checkout</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== BUY TICKET ===================== -->
+  <section class="panel" id="panel-buy">
+    <div class="section-title"><h2>Buy a ticket</h2></div>
+    <div class="grid-2">
+      <div class="card">
+        <div class="field-label">From</div>
+        <select class="input"><option>Colbyn</option><option>Silverton</option><option>Meyerspark</option><option>Murrayfield</option></select>
+        <div class="field-label">To</div>
+        <select class="input"><option>Church Street East, Arcadia</option><option>Pretoria CBD</option><option>Sunnyside</option></select>
+
+        <div class="field-label">Ticket type</div>
+        <div class="option-grid">
+          <div class="option selected">Single<br><span style="font-size:11px;font-weight:500;color:var(--muted)">R 14.50</span></div>
+          <div class="option">Return<br><span style="font-size:11px;font-weight:500;color:var(--muted)">R 26.00</span></div>
+          <div class="option">Day pass<br><span style="font-size:11px;font-weight:500;color:var(--muted)">R 45.00</span></div>
+          <div class="option">Weekly<br><span style="font-size:11px;font-weight:500;color:var(--muted)">R 180.00</span></div>
+        </div>
+        <button class="btn btn-primary" style="width:100%;justify-content:center;margin-top:6px;">Generate QR ticket — R 14.50</button>
+      </div>
+
+      <div class="card">
+        <div class="field-label" style="margin-top:0;">Why go digital</div>
+        <div class="list-row"><div class="l"><div class="icon-badge"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2"/></svg></div><div class="meta"><div class="t">No queues at sales points</div><div class="s">Buy from anywhere, board straight away</div></div></div></div>
+        <div class="list-row"><div class="l"><div class="icon-badge"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2"/></svg></div><div class="meta"><div class="t">No lost or damaged cards</div><div class="s">Your ticket lives safely in your account</div></div></div></div>
+        <div class="list-row"><div class="l"><div class="icon-badge"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2"/></svg></div><div class="meta"><div class="t">Instant access, even for emergencies</div><div class="s">A ticket is ready in seconds, any time</div></div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== TOP UP ===================== -->
+  <section class="panel" id="panel-topup">
+    <div class="section-title"><h2>Top up wallet</h2></div>
+    <div class="grid-2">
+      <div class="card">
+        <div class="field-label" style="margin-top:0;">Amount</div>
+        <div class="option-grid">
+          <div class="option">R 50</div>
+          <div class="option selected">R 100</div>
+          <div class="option">R 200</div>
+          <div class="option">R 500</div>
+        </div>
+        <div class="field-label">Or enter a custom amount</div>
+        <input class="input" placeholder="R 0.00">
+
+        <div class="field-label">Payment method</div>
+        <div class="pay-methods">
+          <div class="pm selected">💳 Card ending 4021</div>
+          <div class="pm">🏦 EFT / bank transfer</div>
+          <div class="pm">+ Add new</div>
+        </div>
+        <button class="btn btn-primary" style="width:100%;justify-content:center;margin-top:20px;">Top up R 100.00</button>
+      </div>
+      <div class="card">
+        <div class="field-label" style="margin-top:0;">Current balance</div>
+        <div style="font-family:'Space Grotesk',sans-serif;font-size:34px;font-weight:700;color:var(--green-900);">R 84.50</div>
+        <div class="s" style="font-size:12.5px;color:var(--muted);margin-top:4px;">Enough for 5 single trips on your usual route.</div>
+        <div class="field-label">Auto top-up</div>
+        <div class="toggle-row">
+          <div><div class="t">Top up automatically</div><div class="s">Reload R 100 whenever balance drops below R 20</div></div>
+          <div class="switch" onclick="this.classList.toggle('on')"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== SCHEDULES ===================== -->
+  <section class="panel" id="panel-schedule">
+    <div class="section-title"><h2>Bus schedules</h2></div>
+    <div class="card" style="margin-bottom:18px;">
+      <p style="margin:0 0 14px;font-size:13.5px;color:var(--muted);">Timetables are ordered clockwise starting from Colbyn and Church Street East — routes travelling the same direction are listed together, so you can also catch a Silverton, Meyerspark or Murrayfield bus covering the same leg.</p>
+      <div class="grid-2">
+        <select class="input"><option>Route: Colbyn — Church St East</option><option>Route: Silverton — Pretoria CBD</option><option>Route: Murrayfield — Arcadia</option></select>
+        <select class="input"><option>Weekday</option><option>Saturday</option><option>Sunday &amp; public holiday</option></select>
+      </div>
+    </div>
+    <div class="card">
+      <table>
+        <thead><tr><th>Departs Colbyn</th><th>Arrives Church St East</th><th>Route</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td>06:15</td><td>06:52</td><td>Colbyn Direct</td><td><span class="tag ok">On time</span></td></tr>
+          <tr><td>06:45</td><td>07:24</td><td>via Silverton</td><td><span class="tag ok">On time</span></td></tr>
+          <tr><td>07:15</td><td>07:58</td><td>via Meyerspark</td><td><span class="tag pending">3 min delay</span></td></tr>
+          <tr><td>07:45</td><td>08:22</td><td>via Murrayfield</td><td><span class="tag ok">On time</span></td></tr>
+          <tr><td>08:15</td><td>08:53</td><td>Colbyn Direct</td><td><span class="tag ok">On time</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ===================== TRIP HISTORY ===================== -->
+  <section class="panel" id="panel-trips">
+    <div class="section-title"><h2>Trip &amp; payment history</h2></div>
+    <div class="card">
+      <table>
+        <thead><tr><th>Date</th><th>Route</th><th>Type</th><th>Amount</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td>15 Jul 2026</td><td>Colbyn → Church St East</td><td>Single</td><td class="amount">R 14.50</td><td><span class="tag ok">Paid</span></td></tr>
+          <tr><td>14 Jul 2026</td><td>—</td><td>Wallet top-up</td><td class="amount">R 100.00</td><td><span class="tag ok">Paid</span></td></tr>
+          <tr><td>14 Jul 2026</td><td>Murrayfield → Arcadia</td><td>Weekly pass</td><td class="amount">Covered</td><td><span class="tag ok">Paid</span></td></tr>
+          <tr><td>10 Jul 2026</td><td>Silverton → Pretoria CBD</td><td>Return</td><td class="amount">R 26.00</td><td><span class="tag ok">Paid</span></td></tr>
+          <tr><td>08 Jul 2026</td><td>—</td><td>Wallet top-up</td><td class="amount">R 200.00</td><td><span class="tag pending">Processing</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ===================== SETTINGS ===================== -->
+  <section class="panel" id="panel-settings">
+    <div class="section-title"><h2>Account settings</h2></div>
+    <div class="grid-2">
+      <div class="card">
+        <div class="field-label" style="margin-top:0;">Full name</div>
+        <input class="input" id="set-name" value="Thabo Mokoena">
+        <div class="field-label">Email address</div>
+        <input class="input" id="set-email" value="thabo.mokoena@example.com">
+        <div class="field-label">Mobile number</div>
+        <input class="input" value="082 000 0000">
+        <button class="btn btn-primary" style="margin-top:20px;" onclick="saveProfile()">Save changes</button>
+        <span id="profile-saved" class="save-confirm"></span>
+      </div>
+      <div class="card">
+        <div class="field-label" style="margin-top:0;">Notifications</div>
+        <div class="toggle-row"><div><div class="t">Trip &amp; boarding alerts</div><div class="s">QR scan confirmations and delays</div></div><div class="switch on" onclick="this.classList.toggle('on')"></div></div>
+        <div class="toggle-row"><div><div class="t">Low balance warnings</div><div class="s">Notify when wallet drops below R 20</div></div><div class="switch on" onclick="this.classList.toggle('on')"></div></div>
+        <div class="toggle-row"><div><div class="t">Promotions &amp; service updates</div><div class="s">Fare changes, new routes, news</div></div><div class="switch" onclick="this.classList.toggle('on')"></div></div>
+      </div>
+    </div>
+
+    <div class="grid-2" style="margin-top:16px;">
+      <div class="card">
+        <div class="field-label" style="margin-top:0;">Change password</div>
+        <input class="input" type="password" placeholder="Current password">
+        <div class="field-label">New password</div>
+        <input class="input" type="password" placeholder="At least 8 characters">
+        <div class="field-label">Confirm new password</div>
+        <input class="input" type="password" placeholder="Repeat new password">
+        <button class="btn btn-outline" style="margin-top:20px;">Update password</button>
+      </div>
+      <div class="card">
+        <div class="field-label" style="margin-top:0;">Session</div>
+        <p style="font-size:13.5px;color:var(--muted);margin:0 0 16px;">Signed in as <b id="set-signed-in-email">thabo.mokoena@example.com</b>. Log out if you're on a shared device.</p>
+        <button class="btn btn-outline danger" onclick="handleLogout()">Log out</button>
+      </div>
+    </div>
+
+    <div class="section-title" style="margin-top: 40px;"><h2>Contact &amp; Support</h2></div>
+    <div class="contact-grid">
+      <div class="contact-card">
+        <div class="contact-icon">☎</div>
+        <div class="contact-title">Tshwane Bus Service</div>
+        <div class="contact-info">012 358 0839 / 0840</div>
+      </div>
+      <div class="contact-card">
+        <div class="contact-icon">📞</div>
+        <div class="contact-title">Call Center (24/7)</div>
+        <div class="contact-info">012 358 9999</div>
+      </div>
+      <div class="contact-card">
+        <div class="contact-icon">🆓</div>
+        <div class="contact-title">Toll-free Helpline</div>
+        <div class="contact-info">080 111 1556</div>
+      </div>
+      <div class="contact-card">
+        <div class="contact-icon">🚨</div>
+        <div class="contact-title">Emergency</div>
+        <div class="contact-info">107 (Tshwane Emergency)</div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-section">
+      <div class="footer-title">About Tshwane Bus</div>
+      <p>Safe, affordable, and reliable public transport for the City of Tshwane. Serving residents and visitors across Pretoria and surrounding areas.</p>
+      <div class="social-links">
+        <a href="https://www.facebook.com/The-City-of-Tshwane-116391087723902" target="_blank" title="Facebook">f</a>
+        <a href="https://twitter.com/CityTshwane" target="_blank" title="Twitter">𝕏</a>
+        <a href="https://www.youtube.com/@cityoftshwanemetropolitanm6772" target="_blank" title="YouTube">▶</a>
+        <a href="https://www.instagram.com/city_of_tshwane/" target="_blank" title="Instagram">📷</a>
+      </div>
+    </div>
+    <div class="footer-section">
+      <div class="footer-title">Quick Links</div>
+      <a href="https://www.tshwane.gov.za/" target="_blank">City of Tshwane Official</a>
+      <a href="#" onclick="showTab('settings')">Account Settings</a>
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Service</a>
+    </div>
+    <div class="footer-section">
+      <div class="footer-title">Support</div>
+      <a href="#">Help &amp; FAQ</a>
+      <a href="#">Report an Issue</a>
+      <a href="#">Accessibility</a>
+      <a href="#">Contact Us</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2026 City of Tshwane Metropolitan Municipality. All rights reserved.</p>
+  </div>
+</footer>
+
+</div><!-- /#app -->
+
+<script src="script.js"></script>
+</body>
+</html>
