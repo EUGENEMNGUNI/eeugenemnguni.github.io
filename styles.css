@@ -16,7 +16,11 @@
     --shadow: 0 1px 2px rgba(14,61,39,.06), 0 8px 24px rgba(14,61,39,.07);
   }
   *{box-sizing:border-box;}
-  body{margin:0;background:var(--bg);color:var(--ink);font-family:'Inter',sans-serif;-webkit-font-smoothing:antialiased;}
+  body{background-image: url('Downloads/City_of_Tshwane.jpg');
+    background-size: cover;      /* fills the screen */
+    background-position: center; /* centers the image */
+    background-repeat: no-repeat;
+    background-attachment: fixed;}
   h1,h2,h3,.display{font-family:'Space Grotesk',sans-serif;letter-spacing:-0.01em;}
   a{color:inherit;text-decoration:none;}
   button{font-family:inherit;cursor:pointer;}
