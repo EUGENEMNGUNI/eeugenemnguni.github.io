@@ -1,210 +1,178 @@
-:root{
-    --ink:#12271c;
-    --green-900:#0e3d27;
-    --green-700:#186b41;
-    --green-600:#1f8a54;
-    --green-100:#e4f2e8;
-    --green-50:#f4faf6;
-    --gold:#c99a3a;
-    --gold-dark:#a67c26;
-    --paper:#ffffff;
-    --bg:#f5f7f5;
-    --line:#e1e6e2;
-    --muted:#5c6b62;
-    --danger:#c1442c;
-    --radius:14px;
-    --shadow: 0 1px 2px rgba(14,61,39,.06), 0 8px 24px rgba(14,61,39,.07);
-  }
-  *{box-sizing:border-box;}
-  body{
-    background-image: url('https://businesstech.co.za/news/wp-content/uploads/2018/07/Tshwane.jpg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+
+:root {
+  /* Recolored to match the lighter, fresh municipal design from the screenshot */
+  --ink: #2f3a33;
+  
+  --green-900: #2f7d32;   /* Darker brand green (e.g., text, footer) */
+  --green-700: #5cb63a;   /* Vibrant mid-green (e.g., active borders, left-accent) */
+  --green-600: #7ac943;   /* Light brand green (e.g., login left panel background) */
+  --green-100: #e8f5df;   /* Light green tint (e.g., selected option bg) */
+  --green-50: #f5fbef;    /* Subtle green wash */
+  
+  --gold: #f0a832;        /* Bright orange/gold (e.g., primary buttons) */
+  --gold-dark: #d8901f;   /* Hover state for orange/gold buttons */
+  
+  --paper: #ffffff;
+  --bg: #f7f8f7;
+  --line: #e5e8e5;
+  --muted: #7a817d;
+  --danger: #d9534f;
+  
+  --radius: 14px;
+  --shadow: 0 2px 8px rgba(0,0,0,.06);
 }
-  h1,h2,h3,.display{font-family:'Space Grotesk',sans-serif;letter-spacing:-0.01em;}
-  a{color:inherit;text-decoration:none;}
-  button{font-family:inherit;cursor:pointer;}
 
-  /* ---- utility bar ---- */
-  .utility{background:var(--green-900);color:#cfe6d8;font-size:12.5px;}
-  .utility-inner{max-width:1180px;margin:0 auto;padding:6px 24px;display:flex;justify-content:space-between;align-items:center;}
-  .utility a{opacity:.9;}
-  .utility a:hover{opacity:1;text-decoration:underline;}
-  .utility-links{display:flex;gap:18px;}
+* {
+  box-sizing: border-box;
+}
 
-  /* ---- header ---- */
-  header.top{background:var(--paper);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:40;}
-  .top-inner{max-width:1180px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;gap:28px;}
-  .brand{display:flex;align-items:center;gap:10px;flex-shrink:0;}
-  .brand-mark{width:38px;height:38px;border-radius:10px;background:linear-gradient(155deg,var(--green-700),var(--green-900));display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-  .brand-name{line-height:1.1;}
-  .brand-name .top{display:block;font-size:10.5px;letter-spacing:.14em;color:var(--gold-dark);font-weight:600;text-transform:uppercase;}
-  .brand-name .main{display:block;font-size:18px;font-weight:700;color:var(--green-900);}
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  color: var(--ink);
+  
+  /* Adds your requested Tshwane background image with a light overlay for readability */
+  background: 
+    linear-gradient(rgba(247, 248, 247, 0.9), rgba(247, 248, 247, 0.9)),
+    url('https://businesstech.co.za/news/wp-content/uploads/2018/07/Tshwane.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
 
-  nav.tabs{display:flex;gap:4px;flex:1;overflow-x:auto;}
-  nav.tabs button{background:none;border:none;padding:10px 14px;font-size:14.5px;font-weight:600;color:var(--muted);border-bottom:3px solid transparent;white-space:nowrap;}
-  nav.tabs button:hover{color:var(--green-900);}
-  nav.tabs button.active{color:var(--green-900);border-bottom-color:var(--gold);}
+h1, h2, h3, .display {
+  font-family: 'Space Grotesk', sans-serif;
+  letter-spacing: -0.01em;
+}
 
-  .account-chip{display:flex;align-items:center;gap:10px;flex-shrink:0;}
-  .wallet-pill{background:var(--green-50);border:1px solid var(--green-100);color:var(--green-900);font-weight:700;font-size:13.5px;padding:7px 12px;border-radius:999px;display:flex;align-items:center;gap:6px;}
-  .avatar{width:34px;height:34px;border-radius:50%;background:var(--gold);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;}
+a {
+  color: inherit;
+  text-decoration: none;
+}
 
-  #app.app-shell{display:none;}
-  main{max-width:1180px;margin:0 auto;padding:28px 24px 60px;}
-  .panel{display:none;}
-  .panel.active{display:block;animation:fade .25s ease;}
-  @keyframes fade{from{opacity:0;transform:translateY(4px);}to{opacity:1;transform:none;}}
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
 
-  /* ---- hero ---- */
-  .hero{background:radial-gradient(120% 140% at 100% 0%, var(--green-700), var(--green-900));border-radius:20px;padding:34px 36px;color:#fff;display:grid;grid-template-columns:1.3fr 1fr;gap:28px;align-items:center;margin-bottom:22px;}
-  .hero .eyebrow{font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);font-weight:700;margin:0 0 10px;}
-  .hero h1{font-size:32px;margin:0 0 10px;line-height:1.15;}
-  .hero p{margin:0 0 20px;color:#d6ebde;font-size:15px;max-width:38ch;}
-  .hero .balance-row{display:flex;gap:26px;flex-wrap:wrap;}
-  .balance-block .label{font-size:12px;color:#a9d3bb;text-transform:uppercase;letter-spacing:.08em;}
-  .balance-block .value{font-size:26px;font-weight:700;font-family:'Space Grotesk',sans-serif;}
-  .hero-actions{margin-top:22px;display:flex;gap:10px;flex-wrap:wrap;}
-  .btn{border:none;border-radius:10px;padding:11px 18px;font-weight:700;font-size:14px;display:inline-flex;align-items:center;gap:8px;}
-  .btn-gold{background:var(--gold);color:#1c1200;}
-  .btn-gold:hover{background:var(--gold-dark);}
-  .btn-ghost{background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.35);}
-  .btn-ghost:hover{background:rgba(255,255,255,.2);}
-  .btn-primary{background:var(--green-700);color:#fff;}
-  .btn-primary:hover{background:var(--green-900);}
-  .btn-outline{background:transparent;border:1.5px solid var(--line);color:var(--green-900);}
-  .btn-outline:hover{border-color:var(--green-700);}
+/* ---- Utility Bar ---- */
+.utility {
+  background: var(--green-900);
+  color: #cfe6d8;
+  font-size: 12.5px;
+}
 
-  /* QR card */
-  .qr-card{background:#fff;border-radius:16px;padding:20px;color:var(--ink);box-shadow:var(--shadow);}
-  .qr-card .top{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;}
-  .qr-card .top .name{font-weight:700;font-size:14px;}
-  .qr-card .top .status{font-size:11px;font-weight:700;color:var(--green-700);background:var(--green-100);padding:3px 9px;border-radius:999px;}
-  .qr-wrap{display:flex;justify-content:center;padding:10px 0 4px;}
-  .qr-card .foot{text-align:center;font-size:12px;color:var(--muted);margin-top:8px;}
-  .qr-card .foot b{color:var(--ink);}
+.utility-inner {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 6px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 
-  /* ---- section shell ---- */
-  .section-title{display:flex;align-items:baseline;justify-content:space-between;margin:34px 0 14px;}
-  .section-title h2{font-size:20px;margin:0;color:var(--green-900);}
-  .section-title .see-all{font-size:13px;font-weight:600;color:var(--green-700);}
+.utility a {
+  opacity: .9;
+}
 
-  .grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;}
-  .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:30px;}
-  .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
-  @media(max-width:860px){.grid-4{grid-template-columns:repeat(2,1fr);} .grid-3{grid-template-columns:1fr;} .grid-2{grid-template-columns:1fr;} .hero{grid-template-columns:1fr;}}
-  .btn-sm{padding:8px 12px;font-size:12.5px;}
-  .btn-outline.danger{border-color:#eecbc0;color:var(--danger);}
-  .btn-outline.danger:hover{background:#fdf1ee;}
-  .btn-outline:disabled{opacity:.5;cursor:default;}
-  .save-confirm{display:inline-block;margin-left:10px;font-size:12.5px;font-weight:600;color:var(--green-700);opacity:0;transition:opacity .2s;}
-  .save-confirm.show{opacity:1;}
+.utility a:hover {
+  opacity: 1;
+  text-decoration: underline;
+}
 
-  .quick-card{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);padding:18px;display:flex;flex-direction:column;gap:10px;transition:box-shadow .15s, transform .15s;}
-  .quick-card:hover{box-shadow:var(--shadow);transform:translateY(-2px);}
-  .quick-icon{width:40px;height:40px;border-radius:10px;background:var(--green-100);color:var(--green-700);display:flex;align-items:center;justify-content:center;}
-  .quick-card .t{font-weight:700;font-size:14.5px;}
-  .quick-card .d{font-size:12.5px;color:var(--muted);}
+.utility-links {
+  display: flex;
+  gap: 18px;
+}
 
-  .card{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);padding:20px;}
-  .list-row{display:flex;align-items:center;justify-content:space-between;padding:13px 0;border-bottom:1px solid var(--line);}
-  .list-row:last-child{border-bottom:none;}
-  .list-row .l{display:flex;align-items:center;gap:12px;}
-  .icon-badge{width:36px;height:36px;border-radius:9px;background:var(--green-50);color:var(--green-700);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-  .list-row .meta .t{font-weight:600;font-size:14px;}
-  .list-row .meta .s{font-size:12px;color:var(--muted);}
-  .amount{font-weight:700;font-family:'Space Grotesk',sans-serif;}
-  .tag{font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;}
-  .tag.ok{background:var(--green-100);color:var(--green-700);}
-  .tag.pending{background:#fdf0da;color:var(--gold-dark);}
+/* ---- Auth / Login Page split-panel layout (Screenshot 1) ---- */
+.auth-wrap {
+  min-height: 100vh;
+  display: flex;
+  background: #ffffff;
+}
 
-  /* ticket / topup grid */
-  .option-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:14px 0 20px;}
-  .option{border:1.5px solid var(--line);border-radius:10px;padding:14px;text-align:center;background:#fff;font-weight:700;font-family:'Space Grotesk',sans-serif;font-size:16px;}
-  .option.selected{border-color:var(--green-700);background:var(--green-50);color:var(--green-900);}
-  .field-label{font-size:12.5px;font-weight:600;color:var(--muted);margin:18px 0 8px;text-transform:uppercase;letter-spacing:.05em;}
-  .input, select{width:100%;padding:12px 14px;border-radius:10px;border:1.5px solid var(--line);font-size:14.5px;font-family:inherit;background:#fff;}
-  .pay-methods{display:flex;gap:10px;flex-wrap:wrap;margin-top:8px;}
-  .pay-methods .pm{border:1.5px solid var(--line);border-radius:10px;padding:10px 14px;font-size:13.5px;font-weight:600;display:flex;align-items:center;gap:8px;}
-  .pay-methods .pm.selected{border-color:var(--green-700);background:var(--green-50);}
+/* Left green side panel */
+.auth-promo {
+  flex: 1;
+  background: linear-gradient(135deg, var(--green-600), var(--green-700));
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 48px;
+}
 
-  table{width:100%;border-collapse:collapse;font-size:13.5px;}
-  thead th{text-align:left;font-size:11.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);padding:0 10px 10px;border-bottom:1px solid var(--line);}
-  tbody td{padding:12px 10px;border-bottom:1px solid var(--line);}
-  tbody tr:last-child td{border-bottom:none;}
+.auth-promo h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 24px;
+}
 
-  .toggle-row{display:flex;justify-content:space-between;align-items:center;padding:14px 0;border-bottom:1px solid var(--line);}
-  .toggle-row:last-child{border-bottom:none;}
-  .toggle-row .t{font-weight:600;font-size:14px;}
-  .toggle-row .s{font-size:12.5px;color:var(--muted);}
-  .switch{width:42px;height:24px;border-radius:999px;background:var(--line);position:relative;flex-shrink:0;cursor:pointer;}
-  .switch.on{background:var(--green-600);}
-  .switch::after{content:"";position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:#fff;transition:left .15s;}
-  .switch.on::after{left:21px;}
+/* Right side card */
+.auth-card {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 48px;
+  background: #ffffff;
+}
 
-  .promo{margin-top:22px;background:var(--green-50);border:1px solid var(--green-100);border-radius:var(--radius);padding:18px 20px;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;}
-  .promo .t{font-weight:700;color:var(--green-900);}
-  .promo .s{font-size:13px;color:var(--muted);margin-top:2px;}
+/* ---- Background image & watermark container ---- */
+main {
+  position: relative;
+}
 
-  footer{background:var(--green-900);color:#bcd9c8;margin-top:50px;}
-  .footer-inner{max-width:1180px;margin:0 auto;padding:26px 24px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font-size:12.5px;}
+/* Adds a subtle watermarked version of your image behind main dashboard content (Screenshots 2 & 3) */
+main::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: url("https://businesstech.co.za/news/wp-content/uploads/2018/07/Tshwane.jpg") center center no-repeat;
+  background-size: 600px;
+  opacity: 0.05;
+  pointer-events: none;
+  z-index: 0;
+}
 
-  /* ---- ticket / card management ---- */
-  .ticket-card{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);padding:18px;display:flex;flex-direction:column;gap:8px;position:relative;}
-  .ticket-card.active-card{border-color:var(--green-700);box-shadow:0 0 0 3px var(--green-50);}
-  .ticket-card.frozen{opacity:.55;}
-  .ticket-top{display:flex;justify-content:space-between;align-items:center;}
-  .ticket-type{font-weight:700;font-size:14.5px;color:var(--green-900);}
-  .ticket-balance{font-family:'Space Grotesk',sans-serif;font-size:26px;font-weight:700;margin-top:2px;}
-  .ticket-sub{font-size:12px;color:var(--muted);margin-bottom:6px;}
-  .ticket-actions{display:flex;gap:8px;margin-top:auto;flex-wrap:wrap;}
+/* ---- Buttons ---- */
+.btn-primary, .btn-gold {
+  background-color: var(--gold);
+  color: #ffffff;
+  border: none;
+  border-radius: var(--radius);
+  padding: 12px 24px;
+  font-weight: 600;
+  transition: background 0.2s ease;
+}
 
-  /* ---- account dropdown ---- */
-  .account-menu{position:relative;}
-  .avatar{width:34px;height:34px;border-radius:50%;background:var(--gold);color:#fff;border:none;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;}
-  .account-dropdown{display:none;position:absolute;right:0;top:44px;background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);min-width:220px;padding:14px;z-index:50;}
-  .account-dropdown.open{display:block;}
-  .dropdown-name{font-weight:700;font-size:14px;}
-  .dropdown-email{font-size:12px;color:var(--muted);margin-bottom:10px;}
-  .account-dropdown a{display:block;padding:9px 4px;font-size:13.5px;font-weight:600;color:var(--ink);border-top:1px solid var(--line);}
+.btn-primary:hover, .btn-gold:hover {
+  background-color: var(--gold-dark);
+}
 
-  /* ---- contact grid ---- */
-  .contact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-bottom:40px;}
-  .contact-card{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);padding:20px;text-align:center;transition:all 0.2s;}
-  .contact-card:hover{border-color:var(--gold);box-shadow:0 4px 12px rgba(201,154,58,.1);}
-  .contact-icon{font-size:32px;margin-bottom:12px;}
-  .contact-title{font-weight:700;font-size:14px;color:var(--green-900);margin-bottom:8px;}
-  .contact-info{font-size:16px;font-weight:600;color:var(--gold-dark);}
+/* ---- Interactive list selections (Screenshot 2) ---- */
+.option {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--paper);
+  transition: all 0.2s ease;
+}
 
-  /* ---- footer ---- */
-  footer{background:var(--green-900);color:#cfe6d8;padding:40px 24px 20px;}
-  .footer-inner{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:32px;margin-bottom:24px;}
-  .footer-section{line-height:1.6;}
-  .footer-title{font-weight:700;color:#fff;margin-bottom:12px;font-size:14px;}
-  .footer-section p{font-size:13px;opacity:.85;margin:0 0 16px 0;}
-  .footer-section a{display:block;font-size:13px;opacity:.8;padding:4px 0;transition:opacity 0.2s;}
-  .footer-section a:hover{opacity:1;text-decoration:underline;}
-  .social-links{display:flex;gap:12px;margin-top:16px;}
-  .social-links a{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;background:rgba(255,255,255,.1);border-radius:50%;font-size:16px;opacity:.9;}
-  .social-links a:hover{background:rgba(255,255,255,.2);opacity:1;}
-  .footer-bottom{max-width:1180px;margin:0 auto;padding-top:16px;border-top:1px solid rgba(255,255,255,.1);text-align:center;font-size:12px;opacity:.7;}
-  .account-dropdown a:first-of-type{border-top:1px solid var(--line);}
-  .account-dropdown a:hover{color:var(--green-700);}
-  .account-dropdown a.logout{color:var(--danger);}
+.option.selected {
+  background: var(--green-100);
+  border-color: var(--green-700);
+  color: var(--green-900);
+}
 
-  /* ---- auth screens ---- */
-  .auth-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;background:radial-gradient(120% 120% at 20% 0%, var(--green-700), var(--green-900));padding:24px;}
-  .auth-card{background:#fff;border-radius:18px;padding:32px;max-width:400px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,.25);}
-  .auth-brand{display:flex;align-items:center;gap:10px;margin-bottom:26px;}
-  .auth-form{display:none;}
-  .auth-form.active{display:block;}
-  .auth-form h1{font-size:22px;margin:0 0 6px;color:var(--green-900);}
-  .auth-sub{font-size:13px;color:var(--muted);margin:0 0 18px;}
-  .auth-row{display:flex;justify-content:space-between;align-items:center;margin:14px 0 4px;font-size:12.5px;}
-  .auth-row .check{display:flex;align-items:center;gap:6px;color:var(--muted);}
-  .link{color:var(--green-700);font-weight:600;}
-  .auth-switch{text-align:center;font-size:13px;color:var(--muted);margin-top:18px;}
-  .auth-switch a{color:var(--green-700);font-weight:700;}
-  .auth-error{display:none;background:#fdf1ee;color:var(--danger);border:1px solid #f3d3c8;border-radius:8px;padding:9px 12px;font-size:12.5px;margin-bottom:10px;}
-  .auth-error.show{display:block;}
+/* ---- Top Up Wallet Card (Screenshot 4) ---- */
+.wallet-pill {
+  background: var(--green-700);
+  color: #ffffff;
+  border-radius: var(--radius);
+  padding: 24px;
+}
+
+```
